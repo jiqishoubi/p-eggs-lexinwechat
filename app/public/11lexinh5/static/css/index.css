@@ -1,0 +1,104 @@
+body {
+  background-color: #F4F4F4;
+}
+
+/* 上面背景 */
+.index_bg {
+  box-sizing: border-box;
+  height: 1.5rem;
+  background: url(../images/index_bg.png) center center no-repeat;
+  background-size: 100% 100%;
+  color: #fff;
+  padding: 0.26rem 0.8rem 0 0.4rem;
+  /* text-align: right; */
+}
+
+/* 对比表格 */
+.container {
+  background-color: #fff;
+  border-radius: 0.03rem;
+}
+
+.compare {
+  box-sizing: border-box;
+  margin-top: -0.41rem;
+  padding-bottom: 0.15rem;
+  height: auto;
+  overflow: hidden;
+  /* transition: all 0.2s ease-in; */
+  transform: translate3d(0, 0, 0);
+}
+
+.table_title {
+  width: 3.2rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.12rem 0;
+  font-weight: bolder;
+}
+
+.table {
+  width: 3.2rem;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  text-align: center;
+  border: 1px solid #BEBEBE;
+  padding: 0.09rem 0;
+  font-weight: normal;
+}
+
+.table th {
+  font-size: 0.14rem;
+  color: #000;
+  background-color: #F1F1F1;
+}
+
+.table td {
+  font-size: 0.13rem;
+  color: #4A4A4A;
+}
+
+/* 填单 */
+.form {
+  padding-bottom: 0.22rem;
+  margin-top: 0.15rem;
+  margin-bottom: 0.25rem;
+}
+
+.form_item,
+.result_item {
+  color: #4A4A4A;
+  border-bottom: 1px solid #D8D8D8;
+  padding: 0.12rem 0;
+}
+
+.input {
+  flex: 1 0 0;
+  width: 0;
+  padding-left: 1em;
+}
+
+.input::-webkit-input-placeholder {
+  color: #D7D6D6;
+}
+
+/* 查询按钮 */
+.submitBtn {
+  margin-top: 0.32rem;
+}
+
+/* 计算结果 */
+.result {
+  display: none;
+  margin-bottom: 0.3rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.redmoney {
+  color: #DC1A22;
+}

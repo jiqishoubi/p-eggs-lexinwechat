@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- 处理html缓存 -->
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <!-- 处理html缓存 end -->
+  <link rel="shortcut icon" href="./favicon.ico" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>实名签约跳转</title>
+</head>
+
+<body>
+  <script>
+    var appid = 'wx3bc1a93ad9d4163b' //乐薪公众号appid
+    var real_url = 'https://lexinh5.bld365.com/11lexinh5/realname.html'
+
+    window.onload = function () {
+      let url = window.location.href
+      let optionStr = url.split('?')[1]
+      let redirect_uri = real_url + "?" + optionStr
+      window.location.href = `
+        https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(redirect_uri)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect
+      `
+    }
+  </script>
+</body>
+
+</html>

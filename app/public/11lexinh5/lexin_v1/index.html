@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- 处理html缓存 -->
+  <meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache" content="no-cache">
+  <!-- 处理html缓存 end -->
+  <link rel="shortcut icon" href="./favicon.ico" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>乐薪计算器</title>
+
+  <script type="text/javascript">
+    document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
+    document.write(
+      "<link rel='stylesheet' href='../static/js/js-build/jquery-weui/weui.min.css' />" +
+      "<link rel='stylesheet' href='../static/js/js-build/jquery-weui/jquery-weui.min.css' />" +
+      "<link rel='stylesheet' href='../static/css/common.css?rnd=" + Math.round(Math.random() * 10000000) + "' />" +
+      "<link rel='stylesheet' href='../static/css/index.css?rnd=" + Math.round(Math.random() * 10000000) + "' />" +
+      "<s" + "cript type='text/javascript' src='../static/js/js-build/jquery-3.1.1.min.js'></s" + "cript>" +
+      "<s" + "cript type='text/javascript' src='../static/js/js-build/jquery-weui/jquery-weui.min.js'></s" + "cript>" +
+      "<s" + "cript type='text/javascript' src='https://res2.wx.qq.com/open/js/jweixin-1.4.0.js'></s" + "cript>" +
+      "<s" + "cript type='text/javascript' src='../static/js/Global.js?rnd=" + Math.round(Math.random() * 10000000) + "'></s" + "cript>"
+    )
+  </script>
+</head>
+
+<body class="index_page">
+  <div class="h100scroll index_page">
+    <div class="index_bg">
+      <div style="font-size: 0.17rem;">五险一金及税后工资计算器</div>
+      <div style="font-size: 0.1rem;">帮助企业和个人合法合规纳税<br />减轻企业和个人负担</div>
+    </div>
+    <div class="common_wrap compare container">
+      <div>
+        <div class="table_title" style="color:#000;">传统用工方案</div>
+        <table class="table">
+          <tr>
+            <th>项目</th>
+            <th>公司承担</th>
+            <th>个人承担</th>
+            <th>合计</th>
+          </tr>
+          <tr>
+            <td>养老保险</td>
+            <td>16%</td>
+            <td>8.0%</td>
+            <td>24.0%</td>
+          </tr>
+          <tr>
+            <td>医疗保险</td>
+            <td>8.6%</td>
+            <td>2.0%</td>
+            <td>10.6%</td>
+          </tr>
+          <tr>
+            <td>工伤保险</td>
+            <td>0.4%</td>
+            <td>--</td>
+            <td>0.4%</td>
+          </tr>
+          <tr>
+            <td>失业保险</td>
+            <td>0.5%</td>
+            <td>0.5%</td>
+            <td>1.0%</td>
+          </tr>
+          <tr>
+            <td>公积金</td>
+            <td>12.0%</td>
+            <td>12.0%</td>
+            <td>24%</td>
+          </tr>
+          <tr>
+            <td>合计</td>
+            <td>37.5%</td>
+            <td>22.5%</td>
+            <td>60%</td>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <div class="table_title" style="color:#DC1A22;">乐薪社会化用工方案</div>
+        <table class="table">
+          <tr>
+            <th>项目</th>
+            <th>公司承担</th>
+            <th>个人承担<br />(3万以下)</th>
+            <th>合计</th>
+          </tr>
+          <tr>
+            <td style="color:#DC1A22;">乐薪平台</td>
+            <td>3.0%</td>
+            <td>0.0%</td>
+            <td>3.0%</td>
+          </tr>
+          <tr>
+            <td>合计</td>
+            <td>3.0%</td>
+            <td>0.0%</td>
+            <td>3.0%</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="common_wrap form container">
+      <div class="table_title flexCenter flexBetween">基本信息<span class="tips"
+          style="font-size: 0.11rem;color:#9B9B9B;font-weight: 100;display: none;">更改工资金额及人数可再次计算</span></div>
+      <div class="table">
+        <div class="form_item flexCenter flexBetween">
+          <span>实发工资</span>
+          <input class="input" type="number" pattern="\d*" name="wage" placeholder="请输入实发金额" />
+          <span>元/月</span>
+        </div>
+        <div class="form_item flexCenter flexBetween">
+          <span>员工人数</span>
+          <input class="input" type="number" pattern="\d*" name="pernum" placeholder="请输入员工人数" />
+          <span>人</span>
+        </div>
+        <a href="javascript:void(0)" class="weui-btn weui-btn_warn submitBtn" style="font-size: 0.15rem;">开始计算</a>
+      </div>
+    </div>
+    <!-- 计算结果 -->
+    <div class="common_wrap result container">
+      <div class="table_title flexCenter flexBetween">计算结果</div>
+      <div class="table">
+        <div class="result_item flexCenter flexBetween">
+          <span>传统用工企业实付(月/人)</span>
+          <span data-result="AM"></span>
+        </div>
+        <div class="result_item flexCenter flexBetween" style="font-weight: bold;">
+          <span>乐薪用工企业实付(月/人)</span>
+          <span class="redmoney" data-result="AM_lexin"></span>
+        </div>
+        <div class="result_item flexCenter flexBetween">
+          <span>企业实付节省(月/人)</span>
+          <span class="redmoney" data-result="save"></span>
+        </div>
+        <div class="result_item flexCenter flexBetween" style="border-bottom: none;">
+          <span>企业实付节省(年/<span class="yearper"></span>人)</span>
+          <span class="redmoney" data-result="save_year"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var Calc = {
+      status: "1", //状态标记
+      compareH: "", //对比表格的height
+
+      //去 状态1
+      goStatus1: function () {
+        Calc.status = "1"
+        $(".tips").hide()
+        $(".form").css("margin-top", "0.15rem")
+        $(".compare").animate({
+          "height": Calc.compareH,
+          "padding-bottom": "0.15rem"
+        }, "fase", "swing", function () {
+          $(".result").hide()
+        })
+      },
+      //去 状态2
+      goStatus2: function () {
+        Calc.status = "2"
+        Calc.compareH = $(".compare").outerHeight()
+        $(".form").css("margin-top", "0")
+        $(".compare").animate({
+          "height": "0",
+          "padding-bottom": "0"
+        }, "fase", "swing", function () {
+          $(".tips").show()
+          $(".result").show()
+        })
+      },
+      //查询
+      submit: function () {
+        //验证
+        //不能为空
+        if ($("input[name='wage']").val().toString() === "" || $("input[name='pernum']").val().toString() === "") {
+          $.toast("信息请填写完整", "text")
+          return
+        }
+        //验证金额
+        let moneyReg = /(^[1-9](\d+)?(\.\d{1,2})?$)|(^0$)|(^\d\.\d{1,2}$)/
+        if (!moneyReg.test($("input[name='wage']").val().toString())) {
+          $.toast("请输入正确的金额", "text")
+          return
+        }
+        // //验证人数
+        // let numReg = /^\+?[1-9][0-9]*$/
+        // if (!numReg.test($("input[name='pernum']").val())) {
+        //   $.toast("请输入正确的人数", "text")
+        //   return
+        // }
+        //验证 end
+
+
+        $.showLoading("计算中")
+        setTimeout(function () {
+          $.hideLoading()
+          //计算
+          let result = Global.lexinCalc(
+            Number($("input[name='wage']").val()),
+            Number($("input[name='pernum']").val())
+          )
+          console.log(result)
+          //填数据
+          // AM: 4632.000193548387
+          // AM_lexin: 3987.0967741935483
+          // save: 644.9034193548387
+          // save_year: 7738.841032258064
+          $(".yearper").html($("input[name='pernum']").val().toString() === "1" ? "" : $("input[name='pernum']").val())
+          $("span[data-result]").each(function () {
+            let key = $(this).attr("data-result")
+            $(this).html(Global.toMoney(result[key]))
+          })
+          if (Calc.status === "1") {
+            Calc.goStatus2()
+          }
+        }, 450)
+      },
+      eventsBind: function () {
+        //点击查询
+        $(".submitBtn").click(function () {
+          Calc.submit()
+        })
+        // //input改变时
+        // $(".form_item input").on("input", function () {
+        //   if (Calc.status === "2") {
+        //     $("span[data-result]").html("")
+        //     // Calc.goStatus1()
+        //   }
+        // })
+        //ios软键盘收起，页面下不来的情况
+        var bfscrolltop = document.body.scrollTop;
+        $("input").focus(function () {
+          document.body.scrollTop = document.body.scrollHeight;
+        }).blur(function () {
+          document.body.scrollTop = bfscrolltop;
+        });
+        //ios软键盘收起，页面下不来的情况 end
+      },
+      init: function () {
+        Calc.eventsBind()
+      }
+    }
+    $(function () {
+      Global.configWechat({
+        title: "乐薪平台-税后工资计算器",
+        desc: "五险一金及税后工资计算器，帮助企业和个人合法合规纳税，减轻企业和个人负担",
+        // imgUrl: "",
+      }, function () {
+        Calc.init()
+      })
+    })
+  </script>
+</body>
+
+</html>

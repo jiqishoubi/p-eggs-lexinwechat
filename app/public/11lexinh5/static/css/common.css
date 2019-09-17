@@ -1,0 +1,337 @@
+/* reset */
+
+body,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+form {
+  margin: 0;
+}
+
+ol,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var,
+optgroup {
+  font-style: normal;
+}
+
+input,
+button,
+textarea,
+select,
+optgroup,
+option {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  *font-size: 100%;
+}
+
+fieldset,
+img,
+a img,
+:link img,
+:visited img {
+  border: 0;
+}
+
+:focus {
+  outline: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption,
+th {
+  text-align: left;
+}
+
+sup,
+sub {
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+.clearfix:after {
+  content: '';
+  display: table-cell;
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+img {
+  display: inline-block;
+  /* 火狐浏览器下  没有src的img  是类似于span的内联元素 */
+}
+
+input,
+textarea,
+img,
+video,
+object {
+  box-sizing: border-box;
+  /* 这几个替换元素设为border-box */
+}
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*自定义*/
+
+/*让页面滚动条不发生晃动*/
+
+/* html {
+	overflow-y: scroll;
+}
+:root {
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+:root body {
+	position: absolute;
+}
+body {
+	width: 100vw;
+	overflow: hidden;
+} */
+
+/*设置一些 字号 字体 字颜色*/
+
+/* body {
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+
+a {
+    color: #6a6767;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+} */
+
+/*自定义 end*/
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/* reset end */
+
+/* 公共css */
+
+[v-cloak] {
+  display: none;
+}
+
+/* 禁用元素点击事件 */
+
+.eventsDisabled {
+  pointer-events: none;
+  cursor: pointer;
+}
+
+/* common */
+
+html,
+body {
+  height: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+  --window-top: 0px;
+  --window-bottom: 0px;
+  --status-bar-height: 0px;
+}
+
+/* html{
+  --window-top: 0px;
+  --window-bottom: 0px;
+  --status-bar-height: 0px;
+} */
+
+body {
+  font-family: "HiraginoSansGB-W3";
+  font-size: 0.14rem;
+  height: 100vh;
+  /* overflow: hidden; */
+  /* position: relative; */
+  display: block;
+  /* 让body bfc */
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.vh100 {
+  height: 100vh;
+}
+
+.h100 {
+  height: 100%;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.h100scroll {
+  /* 固定在页面下面的div不能放在这个容器中 */
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  /* -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); */
+}
+
+.img100 {
+  width: 100%;
+  height: 100%;
+}
+
+.imgw100 {
+  width: 100%;
+  height: auto;
+}
+
+.imgh100 {
+  width: auto;
+  height: 100%;
+}
+
+.overhidden {
+  overflow: hidden;
+}
+
+.marginlr14 {
+  margin-left: 0.14rem;
+  margin-right: 0.14rem;
+}
+
+.paddinglr14 {
+  padding-left: 0.14rem;
+  padding-right: 0.14rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flexCenter {
+  display: flex;
+  align-items: center;
+}
+
+.flexBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flexAround {
+  display: flex;
+  justify-content: space-around;
+}
+
+.flexJCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.flexCenterIL {
+  display: inline-flex;
+  align-items: center;
+}
+
+.flexColumn {
+  display: flex;
+  align-items: center;
+  flex-direction: column
+}
+
+.posiRe {
+  position: relative;
+}
+
+.positionCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.noList {
+  line-height: 0.5rem;
+  text-align: center;
+}
+
+/* 开启3d硬件加速 */
+
+.gpu3d {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+/* ////////////////////////////////////////////////////////////////////// */
+input {
+  margin: 0;
+  border: none;
+  outline: none;
+}
+
+.common_wrap {
+  width: 3.47rem;
+  margin-left: auto;
+  margin-right: auto;
+}
