@@ -332,6 +332,15 @@ var Real = {
         console.log(res)
         let openId = res.data
         let unionId = res.data_unionId
+
+        if (!openId) {
+          $.toast('获取openid失败，请重新访问页面', "text", 1200)
+          setTimeout(function () {
+            window.location.reload();
+          }, 1200)
+          return
+        }
+
         Real.openId = openId
         Real.unionId = unionId
         //一、用openid换我们自己的token
