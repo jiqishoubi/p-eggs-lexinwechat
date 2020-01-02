@@ -22,25 +22,6 @@ var Real = {
 
   //获取页面参数
   getPageParam: function () {
-    // let url = window.location.href
-    // if (url.indexOf(',') > -1) {
-    //   let optionStr = url.split('?')[1].split(',')[1]
-    //   let optionArr = optionStr.split('&')
-    //   let option = {}
-    //   optionArr.forEach(function (str) {
-    //     let key = str.split('=')[0]
-    //     let value = str.split('=')[1]
-    //     option[key] = value
-    //   })
-    //   code = option.code
-    //   Real.companyCode = option.companyCode
-    //   Real.mchCode = option.mchCode
-    // } else {
-    //   let option = Global.getPageParams()
-    //   code = option.code
-    //   Real.companyCode = option.companyCode
-    //   Real.mchCode = option.mchCode
-    // }
     code = Global.getUrlParam('code')
     Real.companyCode = Global.getUrlParam('companyCode')
     Real.mchCode = Global.getUrlParam('mchCode')
@@ -348,6 +329,7 @@ var Real = {
       data: { code },
       headers: { "x-csrf-token": cookieObj.csrfToken },
       success: function (res) {
+        console.log(res)
         let openId = res.data
         let unionId = res.data_unionId
         Real.openId = openId
@@ -493,11 +475,21 @@ var Real = {
 }
 
 $(function () {
+  let appid = "wx3bc1a93ad9d4163b"; //乐薪公众号appid
+  let code = Global.getUrlParam('code')
+  let redirect_uri = window.location.href;
+
   $.showLoading("微信登录中...")
-  Global.configWechat({
-    title: "乐薪平台-实名认证",
-    desc: "乐薪平台，实名认证，签约企业",
-  }, function () {
-    Real.init()
-  })
+  if (!code) {
+    window.location.href = `
+      https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(redirect_uri)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect
+    `
+  } else {
+    Global.configWechat({
+      title: "乐薪平台-实名认证",
+      desc: "乐薪平台，实名认证，签约企业",
+    }, function () {
+      Real.init()
+    })
+  }
 })

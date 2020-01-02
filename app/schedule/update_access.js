@@ -11,7 +11,7 @@ class UpdateAccess extends Subscription {
     return {
       interval: '7175s', // 间隔
       type: 'worker',
-      immediate: true, //服务启动时，立即执行一次
+      // immediate: true, //服务启动时，立即执行一次
       // disable: true,
     }
   }
