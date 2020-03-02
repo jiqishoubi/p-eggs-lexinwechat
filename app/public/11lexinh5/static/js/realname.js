@@ -333,7 +333,7 @@ var Real = {
         let openId = res.data
         let unionId = res.data_unionId
 
-        if (!openId) {
+        if (!openId || openId == null || openId == 'null') {
           $.toast('获取openid失败，请重新访问页面', "text", 1200)
           setTimeout(function () {
             window.location.reload();
