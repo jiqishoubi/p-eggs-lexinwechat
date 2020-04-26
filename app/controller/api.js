@@ -18,6 +18,7 @@ class ApiController extends Controller {
     console.log('--------------js_ticket------------------')
     console.log(js_ticket)
     //计算config
+    console.log(query)
     let param = wechat.initConfigParam(js_ticket, query.url)
     //返回
     ctx.status = 200
