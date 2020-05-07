@@ -26,6 +26,77 @@ var Real = {
     Real.companyCode = Global.getUrlParam('companyCode')
     Real.mchCode = Global.getUrlParam('mchCode')
   },
+  //用code获取openid
+  getOpenid: function () {
+    let cookieObj = Global.getCookieObj()
+    $.ajax({
+      type: 'post',
+      url: Global.host + '/api/initrealname',
+      data: { code },
+      headers: { "x-csrf-token": cookieObj.csrfToken },
+      success: function (res) {
+        console.log(res)
+        let openId = res.data
+        let unionId = res.data_unionId
+
+        if (!openId || openId == null || openId == 'null') {
+          $.toast('获取openid失败，请重新访问页面', "text", 1200)
+          setTimeout(function () {
+            window.location.reload();
+          }, 1200)
+          return
+        }
+
+        Real.openId = openId
+        Real.unionId = unionId
+        //一、用openid换我们自己的token
+        let cookieObj = Global.getCookieObj()
+        $.ajax({
+          type: 'post',
+          url: Real.host() + "/app/wechat/html/user/token",
+          data: {
+            openId,
+            unionId: Real.unionId,
+          },
+          headers: { "x-csrf-token": cookieObj.csrfToken },
+          success: function (res) {
+            alert(JSON.stringify(res))
+            if (res.resultCode && res.resultCode.toString() == '200') { //已实名
+              //已实名 回显
+              Real.realNameRender(res.value)
+              //二、获取这个人 已签约列表
+              Real.getSignList()
+            } else { //未实名
+              $.hideLoading()
+              $('.h100scroll').css('display', 'block')
+            }
+          }
+        })
+      },
+      error: function (err) {
+      }
+    })
+  },
+  //已实名 回显dom
+  realNameRender: function (value) {
+    Real.token = value.TOKEN
+    // 照片
+    if (value.userAuthInfo && value.userAuthInfo.PSPT_POSITIVE) {
+      $('[data-photo="photo1"]').find('img').attr('src', value.userAuthInfo.PSPT_POSITIVE)
+    }
+    if (value.userAuthInfo && value.userAuthInfo.PSPT_NEGATIVE) {
+      $('[data-photo="photo2"]').find('img').attr('src', value.userAuthInfo.PSPT_NEGATIVE)
+    }
+    $('.photo_img_box').addClass('disabled')
+    //form
+    $('input[name="userName"]').val(value.userAuthInfo && value.userAuthInfo.REAL_NAME ? value.userAuthInfo.REAL_NAME : '')
+    $('input[name="psptNo"]').val(value.userAuthInfo && value.userAuthInfo.PSPT_NO ? value.userAuthInfo.PSPT_NO : '')
+    //2020.05.06银行卡号
+    $('input[name="bankNo"]').val(value.userAuthInfo && value.userAuthInfo.CARD_NO ? value.userAuthInfo.CARD_NO : '')
+    $('input[name="phoneNumber"]').val(value.PHONE_NUMBER)
+    $('.sms_input_item').hide()
+    $('.form_wrap input[name]').prop('readonly', true)
+  },
   //获取协议信息
   getProtocolInfo: function () {
     $('.protocol_iframe iframe').attr('src', '')
@@ -229,9 +300,10 @@ var Real = {
     let smsCaptcha = $('input[name="smsCaptcha"]').val()
     let userName = $('input[name="userName"]').val()
     let psptNo = $('input[name="psptNo"]').val()
+    let bankNo = $('input[name="bankNo"]').val()
     //身份
-    if (userName.trim() == '' || psptNo.trim() == '') {
-      $.toast("姓名和身份证号请填写完整", "text", 1200)
+    if (userName.trim() == '' || psptNo.trim() == '' || bankNo.trim() == '') {
+      $.toast("姓名、身份证号、银行卡号请填写完整", "text", 1200)
       return false
     }
     //手机
@@ -262,6 +334,8 @@ var Real = {
       psptPositive: Real.photo1_url,
       psptNegative: Real.photo2_url,
       unionId: Real.unionId,
+      //2020.05.06增加银行卡
+      bankNo,
     }
     let cookieObj = Global.getCookieObj()
     $.showLoading("处理中...")
@@ -320,56 +394,6 @@ var Real = {
       $.toast('当前企业未上传协议', "text", 1200)
     }
   },
-  //用code获取openid
-  getOpenid: function () {
-    let cookieObj = Global.getCookieObj()
-    $.ajax({
-      type: 'post',
-      url: Global.host + '/api/initrealname',
-      data: { code },
-      headers: { "x-csrf-token": cookieObj.csrfToken },
-      success: function (res) {
-        console.log(res)
-        let openId = res.data
-        let unionId = res.data_unionId
-
-        if (!openId || openId == null || openId == 'null') {
-          $.toast('获取openid失败，请重新访问页面', "text", 1200)
-          setTimeout(function () {
-            window.location.reload();
-          }, 1200)
-          return
-        }
-
-        Real.openId = openId
-        Real.unionId = unionId
-        //一、用openid换我们自己的token
-        let cookieObj = Global.getCookieObj()
-        $.ajax({
-          type: 'post',
-          url: Real.host() + "/app/wechat/html/user/token",
-          data: {
-            openId,
-            unionId: Real.unionId,
-          },
-          headers: { "x-csrf-token": cookieObj.csrfToken },
-          success: function (res) {
-            if (res.resultCode && res.resultCode.toString() == '200') { //已实名
-              //已实名 回显
-              Real.realNameRender(res.value)
-              //二、获取这个人 已签约列表
-              Real.getSignList()
-            } else { //未实名
-              $.hideLoading()
-              $('.h100scroll').css('display', 'block')
-            }
-          }
-        })
-      },
-      error: function (err) {
-      }
-    })
-  },
   //获取 已签约列表
   getSignList: function () {
     let cookieObj = Global.getCookieObj()
@@ -392,24 +416,6 @@ var Real = {
         }
       }
     })
-  },
-  //已实名 回显dom
-  realNameRender: function (value) {
-    Real.token = value.TOKEN
-    // 照片
-    if (value.userAuthInfo && value.userAuthInfo.PSPT_POSITIVE) {
-      $('[data-photo="photo1"]').find('img').attr('src', value.userAuthInfo.PSPT_POSITIVE)
-    }
-    if (value.userAuthInfo && value.userAuthInfo.PSPT_NEGATIVE) {
-      $('[data-photo="photo2"]').find('img').attr('src', value.userAuthInfo.PSPT_NEGATIVE)
-    }
-    $('.photo_img_box').addClass('disabled')
-    //form
-    $('input[name="userName"]').val(value.userAuthInfo && value.userAuthInfo.REAL_NAME ? value.userAuthInfo.REAL_NAME : '')
-    $('input[name="psptNo"]').val(value.userAuthInfo && value.userAuthInfo.PSPT_NO ? value.userAuthInfo.PSPT_NO : '')
-    $('input[name="phoneNumber"]').val(value.PHONE_NUMBER)
-    $('.sms_input_item').hide()
-    $('.form_wrap input[name]').prop('readonly', true)
   },
   //======================================================================================================
   //ios兼容问题
