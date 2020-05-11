@@ -102,7 +102,7 @@ var Real = {
     $('.protocol_iframe iframe').attr('src', '')
     let cookieObj = Global.getCookieObj()
     $.ajax({
-      url: Real.host() + `/app/bind/getProtocol?companyCode=${Real.companyCode}`,
+      url: Real.host() + `/app/bind/getProtocol?companyCode=${Real.companyCode}&mchCode=${Real.mchCode}`,
       headers: { "x-csrf-token": cookieObj.csrfToken },
       success: function (res) {
         if (
