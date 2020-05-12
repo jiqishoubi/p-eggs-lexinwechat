@@ -35,7 +35,6 @@ var Real = {
       data: { code },
       headers: { "x-csrf-token": cookieObj.csrfToken },
       success: function (res) {
-        console.log(res)
         let openId = res.data
         let unionId = res.data_unionId
 
@@ -60,7 +59,6 @@ var Real = {
           },
           headers: { "x-csrf-token": cookieObj.csrfToken },
           success: function (res) {
-            alert(JSON.stringify(res))
             if (res.resultCode && res.resultCode.toString() == '200') { //已实名
               //已实名 回显
               Real.realNameRender(res.value)
