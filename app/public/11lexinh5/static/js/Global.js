@@ -149,23 +149,6 @@ var Global = (function () {
       save_year,
     }
   }
-  // //最终输入 本月应发H 员工人数pernum 得到 4个值
-  // function lexinCalcByH(H, pernum) {
-  //   //本月应发 H
-  //   //传统 企业实付
-  //   let AM = calcAMbyH(H)
-  //   //乐薪 企业实付
-  //   let AM_lexin = calcAMbyH_lexin(H)
-  //   //节省
-  //   let save = AM - AM_lexin
-  //   let save_year = save * 12 * pernum
-  //   return {
-  //     AM,
-  //     AM_lexin,
-  //     save,
-  //     save_year,
-  //   }
-  // }
 
   //金钱格式化
   function toMoney(val) {
@@ -175,7 +158,13 @@ var Global = (function () {
     var ret = intSum + dot;
     return ret;
   }
-  //配置微信js-sdk
+
+  // ******************************************************************************
+  /**
+   * 配置微信js-sdk
+   * @param {*} options 
+   * @param {*} callback 
+   */
   function configWechat(options, callback) { //options { title,desc,imgUrl}
     let timer = null
     let cookieObj = getCookieObj()
@@ -186,9 +175,13 @@ var Global = (function () {
         window.location.href = window.location.href + '&time=' + new Date().getTime()
       }
     }, 3000)
+
     //获取wx config
     //绑定
+    console.log('设置ready')
     wx.ready(function () {
+      console.log('ready')
+      // alert('ready')
       wx.onMenuShareAppMessage({
         title: options.title ? options.title : "乐薪平台", // 分享标题
         desc: options.desc ? options.desc : document.getElementsByTagName("title")[0].innerHTML, // 分享描述
@@ -203,6 +196,8 @@ var Global = (function () {
       }
     });
     wx.error(function (err) {
+      console.log('error')
+      // alert('error')
       if (callback) {
         callback()
       }
@@ -211,15 +206,6 @@ var Global = (function () {
 
     //获取wx config参数
     let url = window.location.href
-    // let urlStr = ''
-
-    // if (isIOS() && url.indexOf(',') > -1) {
-    //   // urlStr = url.split('?')[0]
-    //   let optionStr = url.split('?')[1].split(',')[1]
-    //   urlStr = window.location.origin + window.location.pathname + "?" + optionStr
-    // } else {
-    //   urlStr = url
-    // }
 
     $.ajax({
       type: "post",
@@ -234,6 +220,7 @@ var Global = (function () {
         console.log(res)
         if (res.code === 200) {
           let param = res.data
+          console.log('config')
           //wx config
           wx.config({
             // debug: true, // 开启调试模式,调用的所有api的返回值会在客户端，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -242,8 +229,6 @@ var Global = (function () {
             nonceStr: param.nonceStr, // 必填，生成签名的随机串
             signature: param.signature,// 必填，签名
             jsApiList: [
-              // "updateAppMessageShareData",
-              // "updateTimelineShareData"
               "onMenuShareAppMessage",
               'chooseImage',
               'uploadImage'
@@ -320,6 +305,17 @@ var Global = (function () {
     }
   }
 
+  function isWeixin() {
+    if (!window.navigator) {
+      return false;
+    }
+    let ua = window.navigator.userAgent.toLowerCase();
+    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -342,6 +338,7 @@ var Global = (function () {
     getPageParams,
     getUrlParam,
     getCookieObj,
+    isWeixin,
   }
 })()
 

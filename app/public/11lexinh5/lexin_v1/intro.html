@@ -1,3 +1,5 @@
+<!-- 切换../static   .../static -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,20 +19,18 @@
 
   <script type="text/javascript">
     document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 100 + 'px';
-    document.write(
-      "<link rel='stylesheet' href='../static/js/js-build/jquery-weui/weui.min.css' />" +
-      "<link rel='stylesheet' href='../static/js/js-build/jquery-weui/jquery-weui.min.css' />" +
-      "<link rel='stylesheet' href='../static/js/js-build/3dslider/imageflow.css?rnd=" + Math.round(Math.random() * 10000000) + "' />" +
-      "<link rel='stylesheet' href='../static/css/common.css?rnd=" + Math.round(Math.random() * 10000000) + "' />" +
-      "<link rel='stylesheet' href='../static/css/intro.css?rnd=" + Math.round(Math.random() * 10000000) + "' />" +
-      "<s" + "cript type='text/javascript' src='../static/js/js-build/jquery-3.1.1.min.js'></s" + "cript>" +
-      "<s" + "cript type='text/javascript' src='../static/js/js-build/jquery-weui/jquery-weui.min.js'></s" + "cript>" +
-      "<s" + "cript type='text/javascript' src='../static/js/js-build/jquery-weui/swiper.min.js'></s" + "cript>" +
-      "<s" + "cript type='text/javascript' src='https://res2.wx.qq.com/open/js/jweixin-1.4.0.js'></s" + "cript>" +
-      "<s" + "cript type='text/javascript' src='../static/js/js-build/3dslider/imageflow.js?rnd=" + Math.round(Math.random() * 10000000) + "'></s" + "cript>" +
-      "<s" + "cript type='text/javascript' src='../static/js/Global.js?rnd=" + Math.round(Math.random() * 10000000) + "'></s" + "cript>"
-    )
   </script>
+  <link rel='stylesheet' href='../static/js/js-build/jquery-weui/weui.min.css' />
+  <link rel='stylesheet' href='../static/js/js-build/jquery-weui/jquery-weui.min.css' />
+  <link rel='stylesheet' href='../static/js/js-build/3dslider/imageflow.css' />
+  <link rel='stylesheet' href='../static/css/common.css' />
+  <link rel='stylesheet' href='../static/css/intro.css' />
+  <script type='text/javascript' src='../static/js/js-build/jquery-3.1.1.min.js'></script>
+  <script type='text/javascript' src='../static/js/js-build/jquery-weui/jquery-weui.min.js'></script>
+  <script type='text/javascript' src='../static/js/js-build/jquery-weui/swiper.min.js'></script>
+  <script type='text/javascript' src='https://res2.wx.qq.com/open/js/jweixin-1.4.0.js'></script>
+  <script type='text/javascript' src='../static/js/js-build/3dslider/imageflow.js'></script>
+  <script type='text/javascript' src='../static/js/Global.js'></script>
 </head>
 
 <body class="intro_page">
@@ -574,13 +574,17 @@
       }
     }
     $(function () {
-      Global.configWechat({
-        title: "乐薪平台-业务介绍",
-        desc: "一站式纳税服务平台，帮助企业和个人合法合规纳税，减轻企业和个人负担",
-        imgUrl: "https://www.bld365.com/static/media/home03.872d5fc8.png",
-      }, function () {
+      if (Global.isWeixin()) {
+        Global.configWechat({
+          title: "乐薪平台-业务介绍",
+          desc: "一站式纳税服务平台，帮助企业和个人合法合规纳税，减轻企业和个人负担",
+          imgUrl: "https://www.bld365.com/static/media/home03.872d5fc8.png",
+        }, function () {
+          Intro.init()
+        })
+      } else {
         Intro.init()
-      })
+      }
     })
     function renderTitle() {
       $(".right_title").html(rightArr[curIndex].title)
