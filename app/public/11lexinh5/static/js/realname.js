@@ -300,8 +300,8 @@ var Real = {
     let psptNo = $('input[name="psptNo"]').val()
     let bankNo = $('input[name="bankNo"]').val()
     //身份
-    if (userName.trim() == '' || psptNo.trim() == '' || bankNo.trim() == '') {
-      $.toast("姓名、身份证号、银行卡号请填写完整", "text", 1200)
+    if (userName.trim() == '' || psptNo.trim() == '') {
+      $.toast("姓名、身份证号请填写完整", "text", 1200)
       return false
     }
     //手机
@@ -334,6 +334,7 @@ var Real = {
       unionId: Real.unionId,
       //2020.05.06增加银行卡
       bankNo,
+      mchCode: Real.mchCode,
     }
     let cookieObj = Global.getCookieObj()
     $.showLoading("处理中...")
