@@ -404,9 +404,9 @@ var Real = {
         if (res.resultCode && res.resultCode.toString() == '200') {
           let signList = res.value
           let signCodeList = signList.map(function (obj) {
-            return obj.COMPANY_CODE
+            return obj.MCH_CODE
           })
-          if (signCodeList.indexOf(Real.companyCode) > -1) { //已签约 这个企业
+          if (signCodeList.indexOf(Real.mchCode) > -1) { //已签约 这个企业
             window.location.href = 'realname_success.html'
           } else { //未签约 这个企业
             $.hideLoading()
