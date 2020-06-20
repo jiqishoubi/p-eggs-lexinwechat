@@ -1,5 +1,6 @@
 var appid = 'wx3bc1a93ad9d4163b' //乐薪公众号appid
-let code = '' //公众号code
+var redirect_uri = window.location.href;
+var code = '' //公众号code
 
 var Real = {
   isTest: false,
@@ -41,7 +42,8 @@ var Real = {
         if (!openId || openId == null || openId == 'null') {
           $.toast('获取openid失败，请重新访问页面', "text", 1200)
           setTimeout(function () {
-            window.location.reload();
+            // window.location.reload();
+            window.location.href = `https://lexinh5.bld365.com/11lexinh5/realname_pre.html?companyCode=${Real.companyCode}&mchCode=${Real.mchCode}`
           }, 1200)
           return
         }
@@ -489,9 +491,7 @@ var Real = {
 }
 
 $(function () {
-  let appid = "wx3bc1a93ad9d4163b"; //乐薪公众号appid
   let code = Global.getUrlParam('code')
-  let redirect_uri = window.location.href;
 
   $.showLoading("微信登录中...")
   if (!code) {
