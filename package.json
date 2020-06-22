@@ -26,6 +26,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {
+    "restart": "npm run stop && npm run start",
     "start": "egg-scripts start --port=7326 --daemon --title=egg-server-lexinwechat",
     "stop": "egg-scripts stop --title=egg-server-lexinwechat",
     "dev": "egg-bin dev --port=7326",
