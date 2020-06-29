@@ -237,7 +237,7 @@ var Real = {
     }
     //二、验证手机号
     let value = $('input[name="phoneNumber"]').val()
-    let reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/
+    let reg = /^1[3-9]\d{9}$/
     if (!reg.test(value)) {
       $.toast("请输入正确手机号", "text", 1200)
       return false
