@@ -3,7 +3,7 @@ var redirect_uri = window.location.href;
 var code = '' //公众号code
 
 var Real = {
-  isTest: false,
+  isTest: true,
 
   host: function () {
     return Real.isTest ? 'https://payt.bld365.com' : 'https://pay.bld365.com'
